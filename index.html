@@ -476,10 +476,10 @@
 
     <div class="waitlist-wrap">
       <div class="waitlist-label">Get early access</div>
-      <div class="waitlist-form" id="form">
-        <input class="waitlist-input" type="email" id="email" placeholder="your@email.com" />
-        <button class="waitlist-btn" onclick="joinWaitlist()">Join Waitlist</button>
-      </div>
+      <form class="waitlist-form" id="form" action="https://forminit.com/f/bdxnlwf49pk" method="POST" onsubmit="submitted()">
+        <input class="waitlist-input" type="email" name="email" id="email" placeholder="your@email.com" required />
+        <button class="waitlist-btn" type="submit">Join Waitlist</button>
+      </form>
       <div class="waitlist-note">Be first. No spam. Ever.</div>
       <div class="success-msg" id="success">
         You're on the list. We'll be in touch.
@@ -541,25 +541,11 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  async function joinWaitlist() {
-    const email = document.getElementById('email').value;
-    if (!email || !email.includes('@')) {
-      document.getElementById('email').style.borderBottom = '1px solid rgba(200,169,110,0.5)';
-      document.getElementById('email').focus();
-      return;
-    }
-    try {
-      const res = await fetch('https://forminit.com/f/bdxnlwf49pk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-      });
+  function submitted() {
+    setTimeout(() => {
       document.getElementById('form').style.display = 'none';
       document.getElementById('success').style.display = 'block';
-    } catch(e) {
-      document.getElementById('form').style.display = 'none';
-      document.getElementById('success').style.display = 'block';
-    }
+    }, 500);
   }
 
   // Enter key support

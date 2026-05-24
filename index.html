@@ -397,9 +397,32 @@
     font-weight: 300;
   }
 
+  /* Email section */
+  .email-section {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.3s;
+  }
+
+  .email-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(200,169,110,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .email-link:hover {
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+
   /* Footer */
   .footer {
-    margin-top: 60px;
+    margin-top: 40px;
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.12em;
@@ -439,8 +462,6 @@
 
 <div class="container">
   <div class="main">
-
-    <div class="eyebrow">Est. 2026 — Dubai, UAE</div>
 
     <div class="headline">The Institutional<br><span>Desk</span></div>
 
@@ -506,6 +527,12 @@
         <div class="coming-desc">Private Discord. Weekly live sessions. Traders who treat this like a business.</div>
       </div>
     </div>
+  </div>
+
+  <div class="email-section">
+    <a href="mailto:hello@theinstitutionaldesk.com" class="email-link">
+      hello@theinstitutionaldesk.com
+    </a>
   </div>
 
   <div class="footer">

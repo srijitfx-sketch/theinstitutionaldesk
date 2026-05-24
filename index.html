@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Institutional Desk — Coming Soon</title>
+<meta name="description" content="Retail trader. Institutional mindset. The Institutional Desk is coming. Join the waitlist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f17;
+    --surface: #13131e;
+    --border: rgba(255,255,255,0.07);
+    --accent: #c8a96e;
+    --accent2: #e8c990;
+    --text: #e8e6e0;
+    --muted: rgba(232,230,224,0.45);
+    --dim: rgba(232,230,224,0.2);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* Grid background */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow2 {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,120,200,0.04) 0%, transparent 70%);
+    bottom: -100px;
+    right: -100px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(10,10,15,0.7);
+  }
+
+  .logo-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* Main content */
+  .main {
+    text-align: center;
+    max-width: 780px;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 140px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .headline span {
+    color: var(--accent);
+  }
+
+  .headline-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 140px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--dim);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .tagline {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .tagline strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 32px auto;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+
+  /* Countdown */
+  .countdown-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.9s;
+  }
+
+  .count-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    min-width: 72px;
+    text-align: center;
+  }
+
+  .count-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .count-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .count-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--dim);
+    margin-bottom: 16px;
+  }
+
+  /* Waitlist form */
+  .waitlist-wrap {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .waitlist-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 0;
+    max-width: 460px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface);
+    transition: border-color 0.3s;
+  }
+
+  .waitlist-form:focus-within {
+    border-color: var(--accent);
+  }
+
+  .waitlist-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .waitlist-input::placeholder {
+    color: var(--dim);
+  }
+
+  .waitlist-btn {
+    background: var(--accent);
+    border: none;
+    padding: 16px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0a0a0f;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .waitlist-btn:hover { background: var(--accent2); }
+  .waitlist-btn:active { transform: scale(0.98); }
+
+  .waitlist-note {
+    font-size: 12px;
+    color: var(--dim);
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .success-msg {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-top: 16px;
+    padding: 12px 20px;
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    background: rgba(200,169,110,0.05);
+  }
+
+  /* What's coming section */
+  .coming-section {
+    margin-top: 80px;
+    width: 100%;
+    max-width: 780px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.2s;
+  }
+
+  .coming-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .coming-item {
+    background: var(--bg2);
+    padding: 28px 24px;
+    text-align: left;
+    transition: background 0.3s;
+  }
+
+  .coming-item:hover { background: var(--surface); }
+
+  .coming-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .coming-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .coming-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 60px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.4s;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 16px 20px; }
+    .coming-grid { grid-template-columns: 1fr; }
+    .count-block { min-width: 58px; padding: 12px 14px; }
+    .count-num { font-size: 28px; }
+    .waitlist-form { flex-direction: column; border-radius: 10px; }
+    .waitlist-btn { border-radius: 0 0 9px 9px; padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<div class="topbar">
+  <div class="logo-text">The Institutional Desk</div>
+  <div class="status-pill">
+    <div class="status-dot"></div>
+    Launching Soon
+  </div>
+</div>
+
+<div class="container">
+  <div class="main">
+
+    <div class="eyebrow">Est. 2026 — Dubai, UAE</div>
+
+    <div class="headline">The Institutional<br><span>Desk</span></div>
+
+    <div class="tagline">
+      <strong>Retail trader.</strong> Institutional mindset.
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="countdown-label">Launching in</div>
+
+    <div class="countdown">
+      <div class="count-block">
+        <div class="count-num" id="days">00</div>
+        <div class="count-unit">Days</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-num" id="hours">00</div>
+        <div class="count-unit">Hours</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-num" id="mins">00</div>
+        <div class="count-unit">Mins</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-num" id="secs">00</div>
+        <div class="count-unit">Secs</div>
+      </div>
+    </div>
+
+    <div class="waitlist-wrap">
+      <div class="waitlist-label">Get early access</div>
+      <div class="waitlist-form" id="form">
+        <input class="waitlist-input" type="email" id="email" placeholder="your@email.com" />
+        <button class="waitlist-btn" onclick="joinWaitlist()">Join Waitlist</button>
+      </div>
+      <div class="waitlist-note">Be first. No spam. Ever.</div>
+      <div class="success-msg" id="success">
+        You're on the list. We'll be in touch.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="coming-section">
+    <div class="coming-grid">
+      <div class="coming-item">
+        <div class="coming-icon">01 — App</div>
+        <div class="coming-title">TradeEdge</div>
+        <div class="coming-desc">Your complete trading dashboard. Journal, calculator, AI coach — free to start.</div>
+      </div>
+      <div class="coming-item">
+        <div class="coming-icon">02 — Education</div>
+        <div class="coming-title">SMC & Structure</div>
+        <div class="coming-desc">Courses built around how serious traders actually think — not theory, frameworks.</div>
+      </div>
+      <div class="coming-item">
+        <div class="coming-icon">03 — Community</div>
+        <div class="coming-title">The Desk</div>
+        <div class="coming-desc">Private Discord. Weekly live sessions. Traders who treat this like a business.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    theinstitutionaldesk.com &nbsp;—&nbsp; Dubai, UAE &nbsp;—&nbsp; © 2026
+  </div>
+
+</div>
+
+<script>
+  // Countdown to June 15, 2026
+  const launch = new Date('2026-06-15T00:00:00');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = launch - now;
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('mins').textContent = '00';
+      document.getElementById('secs').textContent = '00';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').textContent = String(d).padStart(2,'0');
+    document.getElementById('hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('secs').textContent = String(s).padStart(2,'0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  function joinWaitlist() {
+    const email = document.getElementById('email').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('email').style.borderBottom = '1px solid rgba(200,169,110,0.5)';
+      document.getElementById('email').focus();
+      return;
+    }
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  }
+
+  // Enter key support
+  document.getElementById('email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') joinWaitlist();
+  });
+</script>
+</body>
+</html>

@@ -541,15 +541,25 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  function joinWaitlist() {
+  async function joinWaitlist() {
     const email = document.getElementById('email').value;
     if (!email || !email.includes('@')) {
       document.getElementById('email').style.borderBottom = '1px solid rgba(200,169,110,0.5)';
       document.getElementById('email').focus();
       return;
     }
-    document.getElementById('form').style.display = 'none';
-    document.getElementById('success').style.display = 'block';
+    try {
+      const res = await fetch('https://forminit.com/f/bdxnlwf49pk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      });
+      document.getElementById('form').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    } catch(e) {
+      document.getElementById('form').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    }
   }
 
   // Enter key support

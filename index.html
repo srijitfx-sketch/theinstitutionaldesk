@@ -342,18 +342,9 @@
   <p class="section-sub" style="margin: 0 auto; text-align:center;">Enter your details and we'll send you our free PDF guide + add you to the private signals channel instantly.</p>
   <div class="signup-box">
     <h3>Claim Free Access</h3>
-    <p>Signals, analysis & the starter guide — no cost, ever.</p>
-    <div class="form-row" id="signup-form">
-      <input type="text" id="fname" placeholder="Your Full Name" autocomplete="name" />
-      <input type="email" id="femail" placeholder="Your Email Address" autocomplete="email" />
-      <input type="tel" id="fphone" placeholder="WhatsApp Number (with country code)" autocomplete="tel" />
-      <button class="form-submit" onclick="handleSignup()">Get Free Access →</button>
-    </div>
-    <div class="success-msg" id="success-msg">
-      <h4>You're In! ✓</h4>
-      <p>Redirecting you to our Telegram channel now...</p>
-    </div>
-    <div class="form-note">🔒 Zero spam. Unsubscribe anytime.</div>
+    <p>Fill in your details and get instant access to our signals channel + free starter guide.</p>
+    <a href="https://tally.so/r/WO1PXj" target="_blank" class="form-submit" style="display:block; text-align:center; text-decoration:none; padding:18px; margin-top:8px;">Get Free Access →</a>
+    <div class="form-note">🔒 Takes 30 seconds. Zero spam. Unsubscribe anytime.</div>
   </div>
 </section>
 
@@ -462,7 +453,7 @@
     });
   }
 
-  function handleSignup() {
+  function handleSignup() { window.open('https://tally.so/r/WO1PXj', '_blank'); return; // TALLY FORM
     const name = document.getElementById('fname').value.trim();
     const email = document.getElementById('femail').value.trim();
     const phone = document.getElementById('fphone').value.trim();

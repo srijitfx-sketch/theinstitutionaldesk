@@ -57,6 +57,9 @@ nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.95); b
 .btn-telegram { background: #2AABEE; color: #fff; border: none; padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 10px; }
 .btn-telegram:hover { background: #1a9bde; transform: translateY(-2px); }
 .btn-telegram svg { width: 18px; height: 18px; fill: currentColor; }
+.btn-miniapp { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 10px; }
+.btn-miniapp:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
+.btn-miniapp svg { width: 18px; height: 18px; fill: currentColor; }
 .hero-stats { position: absolute; right: 48px; bottom: 80px; display: flex; flex-direction: column; gap: 32px; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; }
 .stat { text-align: right; border-right: 2px solid var(--gold); padding-right: 20px; }
 .stat-num { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--gold); line-height: 1; }
@@ -141,7 +144,7 @@ section { padding: 100px 48px; position: relative; }
 
 /* BROKER */
 .broker-section { background: var(--charcoal); text-align: center; }
-.broker-card { display: inline-flex; flex-direction: column; align-items: center; gap: 20px; border: 1px solid var(--border); padding: 48px 64px; margin: 48px auto 0; max-width: 520px; }
+.broker-card { display: inline-flex; flex-direction: column; align-items: center; gap: 20px; border: 1px solid var(--border); padding: 48px 64px; margin: 48px auto 0; max-width: 560px; }
 .broker-name { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--gold); }
 .broker-badges { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .badge { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); padding: 6px 14px; color: #aaa; }
@@ -150,6 +153,12 @@ section { padding: 100px 48px; position: relative; }
 .broker-invite-code { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--gold); letter-spacing: 0.1em; }
 .open-account-btn { background: var(--gold); color: var(--black); border: none; padding: 18px 48px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; margin-top: 8px; }
 .open-account-btn:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.3); }
+.miniapp-btn { background: transparent; color: #2AABEE; border: 1px solid #2AABEE; padding: 14px 36px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+.miniapp-btn:hover { background: #2AABEE; color: #fff; transform: translateY(-2px); }
+.miniapp-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.broker-qr { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 4px; }
+.broker-qr img { width: 140px; height: 140px; border: 1px solid var(--border); padding: 6px; background: #fff; }
+.broker-qr-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
 
 /* PARTNER */
 .partner-section { background: var(--black); text-align: center; }
@@ -184,259 +193,47 @@ footer { border-top: 1px solid var(--border); padding: 48px; display: flex; flex
 .floating-cta { position: fixed; bottom: 28px; right: 28px; z-index: 200; background: var(--gold); color: var(--black); padding: 14px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; box-shadow: 0 8px 32px rgba(201,168,76,0.4); transition: all 0.2s; animation: fadeUp 1s ease 1.2s both; }
 .floating-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
 
-/* =============================================
-   TELEGRAM BOT CHAT WIDGET
-   ============================================= */
-#tid-chat-bubble {
-  position: fixed;
-  bottom: 88px;
-  left: 28px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  animation: fadeUp 1s ease 1.5s both;
-}
-
-#tid-chat-toggle {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2AABEE, #1a9bde);
-  border: 2px solid rgba(42,171,238,0.4);
-  box-shadow: 0 4px 20px rgba(42,171,238,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  position: relative;
-}
-#tid-chat-toggle:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(42,171,238,0.55);
-}
+/* TELEGRAM BOT CHAT WIDGET */
+#tid-chat-bubble { position: fixed; bottom: 88px; left: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; animation: fadeUp 1s ease 1.5s both; }
+#tid-chat-toggle { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #2AABEE, #1a9bde); border: 2px solid rgba(42,171,238,0.4); box-shadow: 0 4px 20px rgba(42,171,238,0.4); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.25s; position: relative; }
+#tid-chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(42,171,238,0.55); }
 #tid-chat-toggle svg { width: 26px; height: 26px; fill: white; }
-
-#tid-chat-badge {
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 14px;
-  height: 14px;
-  background: var(--gold);
-  border-radius: 50%;
-  border: 2px solid var(--black);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.3); opacity: 0.7; }
-}
-
-#tid-chat-tooltip {
-  background: var(--charcoal);
-  border: 1px solid var(--border);
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 6px 12px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: all 0.2s;
-  letter-spacing: 0.02em;
-}
-#tid-chat-bubble:hover #tid-chat-tooltip {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* CHAT WINDOW */
-#tid-chat-window {
-  position: fixed;
-  bottom: 160px;
-  left: 28px;
-  width: 340px;
-  background: #111;
-  border: 1px solid var(--border);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.1);
-  z-index: 9998;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  animation: slideUp 0.25s ease;
-}
+#tid-chat-badge { position: absolute; top: -3px; right: -3px; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: 2px solid var(--black); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+#tid-chat-tooltip { background: var(--charcoal); border: 1px solid var(--border); color: var(--white); font-size: 12px; font-weight: 500; padding: 6px 12px; white-space: nowrap; pointer-events: none; opacity: 0; transform: translateX(-6px); transition: all 0.2s; letter-spacing: 0.02em; }
+#tid-chat-bubble:hover #tid-chat-tooltip { opacity: 1; transform: translateX(0); }
+#tid-chat-window { position: fixed; bottom: 160px; left: 28px; width: 340px; background: #111; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.1); z-index: 9998; display: none; flex-direction: column; overflow: hidden; animation: slideUp 0.25s ease; }
 #tid-chat-window.open { display: flex; }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Chat header */
-#tid-chat-header {
-  background: linear-gradient(135deg, #1a1a1a, #111);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.tid-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), #a07830);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'DM Serif Display', serif;
-  font-size: 14px;
-  color: var(--black);
-  font-weight: 700;
-  flex-shrink: 0;
-}
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+#tid-chat-header { background: linear-gradient(135deg, #1a1a1a, #111); border-bottom: 1px solid var(--border); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.tid-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #a07830); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 14px; color: var(--black); font-weight: 700; flex-shrink: 0; }
 .tid-header-info { flex: 1; }
-.tid-header-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.01em;
-}
-.tid-header-status {
-  font-size: 11px;
-  color: #4CAF50;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 2px;
-}
-.tid-header-status::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4CAF50;
-  display: inline-block;
-}
-#tid-chat-close {
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
-  padding: 2px 6px;
-  transition: color 0.2s;
-}
+.tid-header-name { font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: 0.01em; }
+.tid-header-status { font-size: 11px; color: #4CAF50; display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+.tid-header-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4CAF50; display: inline-block; }
+#tid-chat-close { background: none; border: none; color: #666; cursor: pointer; font-size: 18px; line-height: 1; padding: 2px 6px; transition: color 0.2s; }
 #tid-chat-close:hover { color: var(--white); }
-
-/* Chat messages area */
-#tid-chat-messages {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 280px;
-  overflow-y: auto;
-  background: #0d0d0d;
-}
+#tid-chat-messages { padding: 16px; display: flex; flex-direction: column; gap: 12px; max-height: 280px; overflow-y: auto; background: #0d0d0d; }
 #tid-chat-messages::-webkit-scrollbar { width: 4px; }
 #tid-chat-messages::-webkit-scrollbar-track { background: transparent; }
 #tid-chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-.tid-msg {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-width: 88%;
-}
+.tid-msg { display: flex; flex-direction: column; gap: 4px; max-width: 88%; }
 .tid-msg.bot { align-self: flex-start; }
 .tid-msg.user { align-self: flex-end; }
-
-.tid-msg-bubble {
-  padding: 10px 13px;
-  font-size: 13px;
-  line-height: 1.5;
-  border-radius: 2px;
-}
-.tid-msg.bot .tid-msg-bubble {
-  background: var(--charcoal);
-  border: 1px solid var(--border);
-  color: var(--white);
-  border-bottom-left-radius: 0;
-}
-.tid-msg.user .tid-msg-bubble {
-  background: linear-gradient(135deg, var(--gold), #a07830);
-  color: var(--black);
-  font-weight: 500;
-  border-bottom-right-radius: 0;
-}
-.tid-msg-time {
-  font-size: 10px;
-  color: #444;
-  letter-spacing: 0.03em;
-}
+.tid-msg-bubble { padding: 10px 13px; font-size: 13px; line-height: 1.5; border-radius: 2px; }
+.tid-msg.bot .tid-msg-bubble { background: var(--charcoal); border: 1px solid var(--border); color: var(--white); border-bottom-left-radius: 0; }
+.tid-msg.user .tid-msg-bubble { background: linear-gradient(135deg, var(--gold), #a07830); color: var(--black); font-weight: 500; border-bottom-right-radius: 0; }
+.tid-msg-time { font-size: 10px; color: #444; letter-spacing: 0.03em; }
 .tid-msg.user .tid-msg-time { text-align: right; }
-
-/* Quick reply buttons */
-#tid-quick-replies {
-  padding: 10px 16px 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  background: #0d0d0d;
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-.tid-quick-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 6px 11px;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.tid-quick-btn:hover {
-  background: var(--gold);
-  color: var(--black);
-  border-color: var(--gold);
-}
-
-/* Chat footer CTA */
-#tid-chat-footer {
-  padding: 12px 16px;
-  background: #111;
-  border-top: 1px solid var(--border);
-}
-#tid-open-telegram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  background: #2AABEE;
-  color: white;
-  border: none;
-  padding: 11px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s;
-}
+#tid-quick-replies { padding: 10px 16px 12px; display: flex; flex-wrap: wrap; gap: 7px; background: #0d0d0d; border-top: 1px solid rgba(255,255,255,0.04); }
+.tid-quick-btn { background: transparent; border: 1px solid var(--border); color: var(--gold); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 11px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tid-quick-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+#tid-chat-footer { padding: 12px 16px; background: #111; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+#tid-open-telegram { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #2AABEE; color: white; border: none; padding: 11px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.2s; }
 #tid-open-telegram:hover { background: #1a9bde; }
 #tid-open-telegram svg { width: 15px; height: 15px; fill: white; }
+#tid-open-miniapp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 9px; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+#tid-open-miniapp:hover { background: var(--gold); color: var(--black); }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -493,7 +290,7 @@ footer { border-top: 1px solid var(--border); padding: 48px; display: flex; flex
 <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>
 Join Signals Channel
 </a>
-<a href="https://vigco.co/la-com-inv/oYxD099x" target="_blank" class="nav-cta">Open Account →</a>
+<a href="https://www.vantagemarkets.com/open-live-account/?affid=NzM2MDAwOQ==&invitecode=oYxD099x" target="_blank" class="nav-cta">Open Account →</a>
 </div>
 </nav>
 
@@ -506,7 +303,11 @@ Join Signals Channel
 <h1>Trade the Markets<br/><em>Like the Big Money</em><br/>Does.</h1>
 <p class="hero-sub">Join traders worldwide who use institutional order flow analysis, daily signals, and professional-grade execution — all through one trusted broker.</p>
 <div class="hero-actions">
-<a href="https://vigco.co/la-com-inv/oYxD099x" target="_blank" class="btn-primary">Open Free Account →</a>
+<a href="https://www.vantagemarkets.com/open-live-account/?affid=NzM2MDAwOQ==&invitecode=oYxD099x" target="_blank" class="btn-primary">Open Free Account →</a>
+<a href="https://t.me/vantagemarketsbot/VantageMiniAPP?startapp=d080fea26efa46a5b17bd2a3a2fe508b4e19acc8ed3897bfc320c901495dfc5c" target="_blank" class="btn-miniapp">
+<svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>
+Open in Telegram App
+</a>
 <a href="https://t.me/Theinstitutionaldesk" target="_blank" class="btn-telegram">
 <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>
 Join Free Signals
@@ -643,7 +444,15 @@ Join Free on Telegram
 <span class="broker-invite-label">Use Invite Code</span>
 <span class="broker-invite-code">oYxD099x</span>
 </div>
-<a href="https://vigco.co/la-com-inv/oYxD099x" target="_blank" class="open-account-btn">Open Your Free Account →</a>
+<a href="https://www.vantagemarkets.com/open-live-account/?affid=NzM2MDAwOQ==&invitecode=oYxD099x" target="_blank" class="open-account-btn">Open Your Free Account →</a>
+<a href="https://t.me/vantagemarketsbot/VantageMiniAPP?startapp=d080fea26efa46a5b17bd2a3a2fe508b4e19acc8ed3897bfc320c901495dfc5c" target="_blank" class="miniapp-btn">
+<svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>
+Open in Telegram App
+</a>
+<div class="broker-qr">
+<img src="vantage-qr.png" alt="Scan to open Vantage account — Account No. 7360009" />
+<span class="broker-qr-label">📱 Scan to open account on mobile</span>
+</div>
 <p style="font-size:11px; color:#555; text-align:center;">Takes less than 5 minutes. Fully online.</p>
 </div>
 </section>
@@ -693,11 +502,9 @@ Telegram Signals
 </footer>
 
 <!-- FLOATING CTA (bottom right) -->
-<a href="https://vigco.co/la-com-inv/oYxD099x" target="_blank" class="floating-cta">Open Account →</a>
+<a href="https://www.vantagemarkets.com/open-live-account/?affid=NzM2MDAwOQ==&invitecode=oYxD099x" target="_blank" class="floating-cta">Open Account →</a>
 
-<!-- =============================================
-     TELEGRAM BOT CHAT WIDGET (bottom left)
-     ============================================= -->
+<!-- TELEGRAM BOT CHAT WIDGET (bottom left) -->
 <div id="tid-chat-bubble">
   <span id="tid-chat-tooltip">Chat with our bot</span>
   <div id="tid-chat-toggle" onclick="tidToggleChat()" title="Chat with The Institutional Desk Bot">
@@ -715,31 +522,30 @@ Telegram Signals
     </div>
     <button id="tid-chat-close" onclick="tidToggleChat()">✕</button>
   </div>
-
   <div id="tid-chat-messages">
     <div class="tid-msg bot">
       <div class="tid-msg-bubble">🏛 Welcome to The Institutional Desk.<br><br>I can help you get started with free forex signals or open a Vantage Markets account. What would you like?</div>
       <div class="tid-msg-time">Just now</div>
     </div>
   </div>
-
   <div id="tid-quick-replies">
     <button class="tid-quick-btn" onclick="tidReply('signals')">📊 Free Signals</button>
     <button class="tid-quick-btn" onclick="tidReply('broker')">🏦 Open Account</button>
     <button class="tid-quick-btn" onclick="tidReply('about')">ℹ About Us</button>
     <button class="tid-quick-btn" onclick="tidReply('start')">👋 Get Started</button>
   </div>
-
   <div id="tid-chat-footer">
     <a id="tid-open-telegram" href="https://t.me/InstitutionalDeskBot" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>
       Continue on Telegram
     </a>
+    <a id="tid-open-miniapp" href="https://t.me/vantagemarketsbot/VantageMiniAPP?startapp=d080fea26efa46a5b17bd2a3a2fe508b4e19acc8ed3897bfc320c901495dfc5c" target="_blank">
+      ⚡ Open Vantage in Telegram
+    </a>
   </div>
 </div>
 
 <script>
-/* ---- INVITE CODE COPY ---- */
 function copyCode() {
   navigator.clipboard.writeText('oYxD099x').then(() => {
     const btn = document.querySelector('.invite-copy');
@@ -750,7 +556,6 @@ function copyCode() {
   });
 }
 
-/* ---- SMOOTH SCROLL ---- */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
@@ -758,7 +563,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ---- SCROLL ANIMATIONS ---- */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
@@ -771,15 +575,12 @@ document.querySelectorAll('.what-card, .step, .broker-card, .partner-card, .tele
   observer.observe(el);
 });
 
-/* ---- TELEGRAM BOT CHAT WIDGET ---- */
 var tidChatOpen = false;
-
 function tidToggleChat() {
   tidChatOpen = !tidChatOpen;
   const win = document.getElementById('tid-chat-window');
   if (tidChatOpen) {
     win.classList.add('open');
-    // Remove badge on first open
     const badge = document.getElementById('tid-chat-badge');
     if (badge) badge.style.display = 'none';
   } else {
@@ -797,7 +598,7 @@ var tidResponses = {
   broker: {
     user: '🏦 How do I open an account?',
     bot: '🏦 <b>Vantage Markets — Our Broker</b><br><br>✅ ASIC & FCA Regulated<br>✅ Raw spreads from 0.0 pips<br>✅ MT4, MT5 & TradingView<br>✅ Starts from $50<br><br>Use invite code <b>oYxD099x</b> when registering.<br><br>Takes 5 minutes 👇',
-    cta: 'https://vigco.co/la-com-inv/oYxD099x',
+    cta: 'https://www.vantagemarkets.com/open-live-account/?affid=NzM2MDAwOQ==&invitecode=oYxD099x',
     ctaText: 'Open Free Account →'
   },
   about: {
@@ -809,8 +610,8 @@ var tidResponses = {
   start: {
     user: '👋 I want to get started',
     bot: '🏛 Welcome! Here\'s how to get started in 2 steps:<br><br><b>Step 1</b> — Join our free Telegram signals channel<br><b>Step 2</b> — Open your Vantage Markets account with invite code <b>oYxD099x</b><br><br>Our bot will walk you through everything 👇',
-    cta: 'https://t.me/InstitutionalDeskBot',
-    ctaText: 'Start on Telegram →'
+    cta: 'https://t.me/vantagemarketsbot/VantageMiniAPP?startapp=d080fea26efa46a5b17bd2a3a2fe508b4e19acc8ed3897bfc320c901495dfc5c',
+    ctaText: '⚡ Open Vantage in Telegram'
   }
 };
 
@@ -819,22 +620,16 @@ function tidReply(type) {
   if (!r) return;
   var msgs = document.getElementById('tid-chat-messages');
   var now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-
-  // User message
   msgs.innerHTML += '<div class="tid-msg user"><div class="tid-msg-bubble">' + r.user + '</div><div class="tid-msg-time">' + now + '</div></div>';
   msgs.scrollTop = msgs.scrollHeight;
-
-  // Bot typing delay
   setTimeout(function() {
     msgs.innerHTML += '<div class="tid-msg bot" id="tid-typing"><div class="tid-msg-bubble" style="color:#666;font-style:italic;">Typing...</div></div>';
     msgs.scrollTop = msgs.scrollHeight;
-
     setTimeout(function() {
       var typing = document.getElementById('tid-typing');
       if (typing) typing.remove();
       msgs.innerHTML += '<div class="tid-msg bot"><div class="tid-msg-bubble">' + r.bot + '</div><div class="tid-msg-time">' + now + '</div></div>';
       msgs.scrollTop = msgs.scrollHeight;
-      // Update footer CTA
       var footer = document.getElementById('tid-open-telegram');
       footer.href = r.cta;
       footer.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.617l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.942z"/></svg>' + r.ctaText;
@@ -842,7 +637,6 @@ function tidReply(type) {
   }, 300);
 }
 
-// Auto-open after 8 seconds on first visit
 setTimeout(function() {
   if (!tidChatOpen && !sessionStorage.getItem('tid_chat_seen')) {
     tidToggleChat();
